@@ -7,7 +7,10 @@ write access) in the directory from where the `clogger` executable is invoked.
 
 `clogger.log` contains clogger's own logs.
 
+The `makefile` is very simple and produces an executable in `clogger/bin`. In
+case `make` fails, please create the `clogger/bin` directory manually.
+
 clogger will not stop the client application in any case. If the application
-does no generate a log file, please check `clogger.log` for any problems that
+does not generate a log file, please check `clogger.log` for any problems that
 clogger might have faced.
 
