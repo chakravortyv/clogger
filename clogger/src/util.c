@@ -199,8 +199,7 @@ close_app_log()
 }
 
 /******************************************************************************
- * This function takes a char array and fills it up with the current time 
- * between `[` and `]` and some spaces
+ * This function takes a char array and fills it up with the current time.
  *****************************************************************************/
 
 void
