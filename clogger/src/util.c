@@ -105,7 +105,7 @@ open_app_log(uint8_t write_method,
     }
 
     if (app_log == NULL) {
-        write_clogger_log("Failed to open application log.");
+        write_clogger_log("FAILED to open application log.");
         return -1; 
     }
     

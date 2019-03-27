@@ -2,6 +2,12 @@
 
 #include "incl/clogger.h"
 
+void
+another_function(void)
+{
+    clogger_log("err msg from another function", ERR);
+}
+
 int
 main(void)
 {
@@ -19,6 +25,8 @@ main(void)
     clogger_log("unk message", 99);
     clogger_log("fatal message", FATAL);
     clogger_log("info message", INFO);
+
+    another_function();
 
     /* Shutdown clogger */
     clogger_terminate();

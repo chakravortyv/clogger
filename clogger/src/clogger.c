@@ -24,12 +24,12 @@ clogger_init(void)
 
     if (clogger_stat == CLOGGER_ERR) {
         write_clogger_log("Clogger is in error state. Aborting reinitialization.");
-        return 0;
+        return SUCCESS;
     }
 
     if (clogger_stat == CLOGGER_ON) {
         write_clogger_log("Clogger already initialized. Skipping reinitialization.");
-        return 0;
+        return SUCCESS;
     }
 
     write_clogger_log("Initializing clogger...");
@@ -40,7 +40,7 @@ clogger_init(void)
     if (clogger_config == NULL) {
         write_clogger_log("../conf/runtime.conf could not be read");
         clogger_stat = CLOGGER_ERR;
-        return CLOGGER_ERR;
+        return FAILURE;
     }    
 
     while (fgets(config_line, MAX_LEN_CONFIG_LINE, clogger_config) != NULL) {
@@ -75,29 +75,33 @@ clogger_init(void)
 
     /* Check if the switches were loaded */
     if (check_loaded_switches(debug_level, write_method, log_file_path) != 0) {
-        write_clogger_log("Failed to read atleast one switch. Terminating clogger...");
         clogger_stat = CLOGGER_ERR;
+        write_clogger_log("FAILED to read atleast one switch.");
+        write_clogger_log("FAILED to initialize clogger.");
+        clogger_terminate();
 
-        return -1;
+        return FAILURE;
     }
 
     if (debug_level == OFF) {
-        write_clogger_log("Debug level is set to OFF.");
+        write_clogger_log("Logging has been switched off.");
         clogger_stat = CLOGGER_OFF;
 
-        return 0;
+        return SUCCESS;
     }
 
     /* Open application log based on `WRITE_METHOD`. */
     if (open_app_log(write_method, log_file_path) != 0) {
         clogger_stat = CLOGGER_ERR;
+        write_clogger_log("FAILED to initialize clogger.");
         clogger_terminate();
-        return -1;
+
+        return FAILURE;
     }
 
     write_clogger_log("Clogger initialized.");
 
-    return 0;
+    return SUCCESS;
 }
 
 int
@@ -106,10 +110,15 @@ _clogger_log(char *file_name,
         char *str,
         uint8_t msg_level)
 {
+    /* This if block returns SUCCESS even if clogger is in error or off status
+     * because this function did not fail in such a case. Something else has
+     * already failed before execution came here. `clogger.log` should be able
+     * to say what failed exactly. */
+
     if (debug_level == OFF
             || clogger_stat == CLOGGER_ERR
             || clogger_stat == CLOGGER_OFF
-            || msg_level == OFF) return 0;
+            || msg_level == OFF) return SUCCESS;
 
     if (msg_level >= debug_level) {
         if (write_application_log(file_name, line_no, msg_level, str) != 0) {
@@ -123,13 +132,13 @@ _clogger_log(char *file_name,
         write_clogger_log(str);
     }
 
-    return 0;
+    return SUCCESS;
 }
 
 int
 clogger_terminate(void)
 {
-    if (clogger_stat == CLOGGER_OFF) return 0;
+    if (clogger_stat == CLOGGER_OFF) return SUCCESS;
 
     write_clogger_log("Terminating clogger...");
     
@@ -143,6 +152,6 @@ clogger_terminate(void)
     if (clogger_stat != CLOGGER_ERR)
         clogger_stat = CLOGGER_OFF;
 
-    return 0;
+    return SUCCESS;
 }
 
