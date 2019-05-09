@@ -13,3 +13,4 @@
 int clogger_init(void);
 int _clogger_log(char *, unsigned int, char *, uint8_t);
 int clogger_terminate(void);
+
