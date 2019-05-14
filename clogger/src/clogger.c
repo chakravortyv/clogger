@@ -12,8 +12,7 @@ static uint8_t debug_level = 255;
 static uint8_t write_method = 255;
 static char log_file_path[MAX_PATH_LEN] = {'\0'};
 
-        int
-clogger_init(void)
+int clogger_init(void)
 {
         char config_line[MAX_LEN_CONFIG_LINE] = {0};
 
@@ -104,8 +103,7 @@ clogger_init(void)
         return SUCCESS;
 }
 
-        int
-_clogger_log(char *file_name,
+int _clogger_log(char *file_name,
                 unsigned int line_no,
                 char *str,
                 uint8_t msg_level)
@@ -135,8 +133,7 @@ _clogger_log(char *file_name,
         return SUCCESS;
 }
 
-        int
-clogger_terminate(void)
+int clogger_terminate(void)
 {
         if (clogger_stat == CLOGGER_OFF) return SUCCESS;
 

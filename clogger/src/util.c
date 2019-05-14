@@ -8,8 +8,7 @@ static FILE *app_log;
  * `haystack`, if found. Else, returns `NULL`
  *****************************************************************************/
 
-        int
-indexOf(char *haystack,
+int indexOf(char *haystack,
                 char needle)
 {
         char *ptr = strchr(haystack, needle);
@@ -21,8 +20,7 @@ indexOf(char *haystack,
  * non-space character.
  *****************************************************************************/
 
-        char *
-del_leading_spaces(char *str)
+char *del_leading_spaces(char *str)
 {
         write_clogger_log("Deleting leading spaces for:");
         write_clogger_log(str);
@@ -49,8 +47,7 @@ del_leading_spaces(char *str)
  * non-space character.
  *****************************************************************************/
 
-        void
-del_trailing_spaces(char *str)
+void del_trailing_spaces(char *str)
 {
         write_clogger_log("Deleting trailing spaces for:");
         write_clogger_log(str);
@@ -70,8 +67,7 @@ del_trailing_spaces(char *str)
  * pointer to the first non-space character
  *****************************************************************************/
 
-        char
-*lt_trim(char *str)
+char *lt_trim(char *str)
 {
         del_trailing_spaces(str);
         return del_leading_spaces(str);
@@ -81,8 +77,7 @@ del_trailing_spaces(char *str)
  * This function opens `../log/clogger.log` - clogger's own log file.
  * ***************************************************************************/
 
-        int
-open_clogger_log()
+int open_clogger_log()
 {
         clogger_log = fopen("./clogger.log", "w+");
         if (clogger_log == NULL) return -1;
@@ -94,8 +89,7 @@ open_clogger_log()
  * This function opens the application's log file.
  *****************************************************************************/
 
-        int
-open_app_log(uint8_t write_method,
+int open_app_log(uint8_t write_method,
                 char *log_file_path)
 {
         if (write_method == 0) {
@@ -116,8 +110,7 @@ open_app_log(uint8_t write_method,
  * This function writes to clogger's own log file.
  *****************************************************************************/
 
-        int
-write_clogger_log(char *msg)
+int write_clogger_log(char *msg)
 {
         char now[LEN_TIME];
 
@@ -138,14 +131,13 @@ write_clogger_log(char *msg)
  * This function writes to the application log.
  *****************************************************************************/
 
-        int
-write_application_log(char *file_name,
+int write_application_log(char *file_name,
                 unsigned int line_no,
                 uint8_t msg_level,
                 char *msg)
 {
         char *msg_level_table[MAX_MSG_LEVELS] = {"OFF"
-                , "INFO"
+                        , "INFO"
                         , "ERR"
                         , "FATAL"};
 
@@ -176,8 +168,7 @@ write_application_log(char *file_name,
  * This function closes `../log/clogger.log` - clogger's own log file.
  * ***************************************************************************/
 
-        int
-close_clogger_log()
+int close_clogger_log()
 {
         if (clogger_log == NULL) return -1;
 
@@ -187,8 +178,7 @@ close_clogger_log()
         return 0;
 }
 
-        int
-close_app_log()
+int close_app_log()
 {
         if (app_log == NULL) return -1;
 
@@ -202,8 +192,7 @@ close_app_log()
  * This function takes a char array and fills it up with the current time.
  *****************************************************************************/
 
-        void
-current_time(char* str)
+void current_time(char* str)
 {
         time_t timer;
         struct tm* tm_info;
@@ -219,8 +208,7 @@ current_time(char* str)
  * correct. It returns the number of switches having invalid values.
  *****************************************************************************/
 
-        uint8_t
-check_loaded_switches(uint8_t debug_level,
+uint8_t check_loaded_switches(uint8_t debug_level,
                 uint8_t write_method,
                 char *log_file_path)
 {
@@ -234,3 +222,4 @@ check_loaded_switches(uint8_t debug_level,
 
         return counter;
 }
+
