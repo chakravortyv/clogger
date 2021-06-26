@@ -83,3 +83,9 @@ The following is a sample log file of some application:
 #### Known issues
 * clogger has not been compiled or tested on platforms other than Linux.
 * More checks and validations are required on the data read from the runtime.conf file. For example, checking for tabs and special characters.
+
+#### Room for improvement
+* Use bit fields for error level
+* Provide an alternative to set everything by calling functions instead the property file
+* Buffering - enable / disable
+* Users should be able to use modifiers like %s or %d directly in the log messages
