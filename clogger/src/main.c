@@ -19,7 +19,7 @@ void *thread_func(void *arg)
 
         while (i--) {
                 sprintf(msg, "This is thread %d", t_data->tid);
-                clogger_log(msg, INFO);
+                clogger_log(msg, ERR);
         }
 
         pthread_exit(NULL);
@@ -54,7 +54,7 @@ int main(void)
                 pthread_join(thread[i], NULL);
         }
 
-        clogger_log("All threads have joined.", INFO);
+        clogger_log("All threads have joined.", FATAL);
 
         /* Shutdown clogger */
         clogger_terminate();
