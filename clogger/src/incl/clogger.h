@@ -3,7 +3,7 @@
 #define OFF 0
 #define INFO 1
 #define ERR 2
-#define FATAL 3
+#define FATAL 4
 
 #define clogger_log(str, msg_level) _clogger_log(__FILE__, __LINE__, str, msg_level)
 
