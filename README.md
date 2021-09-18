@@ -25,7 +25,6 @@ Takes a c-string and it's priority level and prints the message to the applicati
 
 `FATAL`  - The program should (ideally) be aborted / handled by the application. But, clogger will not stop the application.
 
-Any other priority level will have the level mentioned as "UNKNOWN" in the application's log file.
 
 *    `int clogger_terminate(void)`            
 
@@ -37,17 +36,17 @@ The `conf/runtime.conf` file contains some configuration parameters or switches.
 
 *    `DEBUG_LEVEL`
 
-The `DEBUG_LEVEL` switch can be thought of as a filter. This determines the level at which clogger should capture log messages. It can have one of the following values:
+The `DEBUG_LEVEL` switch can be thought of as a filter. This determines the level at which clogger should capture log messages. It can have one of (or, the result of adding any of) the following values:
 
-`0` - (Off) no logs will be generated. The log file will not even be created.
+`0` - (OFF) no logs will be generated. The log file will not even be created.
 
-`1` - (Info) any message or information will be captured (along with all higher levels).
+`1` - (INFO) any message or information will be captured (along with all higher levels).
 
-`2` - (Err) error with which the program can still continue will be captured (along with all higher levels)
+`2` - (ERR) error with which the program can still continue will be captured (along with all higher levels)
 
-`3` - (Fatal) the program should be aborted / handled by the application.
+`4` - (FATAL) the program should be aborted / handled by the application.
 
-These levels correspond to the levels passed to `clogger_log()`. Setting `DEBUG_LEVEL` to  `0` (Off) in this file will turn off all logging for the application. Any debug level other than `0` (Off) will activate all higher levels. For example, if `DEBUG_LEVEL` is set to `2`, the application log will not have any `INFO` level messages and will have all messages which were passed to clogger_log with the `ERR` and `FATAL` levels.
+These levels correspond to the levels passed to `clogger_log()`. Setting `DEBUG_LEVEL` to  `0` (OFF) in this file will turn off all logging for the application. Any debug level other than `0` (OFF) will activate the appropriate level. For example, if `DEBUG_LEVEL` is set to `2`, the application log will capture messages what were passed to `clogger_log` with the `ERR` level. If `DEBUG_LEVEL` is set to `3`, the messages with `ERR` and `INFO` levels will be captured.
 
 *    `WRITE_METHOD`
 
@@ -76,7 +75,7 @@ The following is a sample log file of some application:
 
     [2019-03-24 13:44:44]  [INFO   ]  src/main.c:17  some info message
     [2019-03-24 13:44:44]  [ERR    ]  src/main.c:18  some err message
-    [2019-03-24 13:44:44]  [UNKNOWN]  src/main.c:19  some unk message
+    [2019-03-24 13:44:44]  [       ]  src/main.c:19  some unk message
     [2019-03-24 13:44:44]  [FATAL  ]  src/main.c:20  some fatal message
     [2019-03-24 13:44:44]  [INFO   ]  src/main.c:21  another info message
     
@@ -85,7 +84,6 @@ The following is a sample log file of some application:
 * More checks and validations are required on the data read from the runtime.conf file. For example, checking for tabs and special characters.
 
 #### Room for improvement
-* Use bit fields for error level.
 * Provide an alternative to set everything by calling functions instead the property file.
 * Buffering - enable / disable.
 * Users should be able to use modifiers like %s or %d directly in the log messages.
