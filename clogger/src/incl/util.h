@@ -14,7 +14,7 @@
 #define CONF_COMNT_CHAR '#'
 #define MAX_PATH_LEN 256
 #define MAX_LEN_MSG_LEVEL 8
-#define MAX_MSG_LEVELS 4
+#define MAX_MSG_LEVELS 5
 
 int indexOf(char *, char);
 char *del_leading_spaces(char *);
