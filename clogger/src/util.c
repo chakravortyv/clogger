@@ -139,7 +139,9 @@ int write_application_log(char *file_name,
         char *msg_level_table[MAX_MSG_LEVELS] = {"OFF"
                         , "INFO"
                         , "ERR"
+                        , ""
                         , "FATAL"};
+        uint8_t msg_level_bitmap = 0 | 1 | 2 | 4;
 
         char now[LEN_TIME];
         char msg_level_txt[MAX_LEN_MSG_LEVEL];
@@ -153,10 +155,10 @@ int write_application_log(char *file_name,
         current_time(now);
 
         /* Get msg level text. */
-        if (msg_level >= MAX_MSG_LEVELS) {
-                strcpy(msg_level_txt, "UNKNOWN");
-        } else {
+        if (msg_level & msg_level_bitmap) {
                 strcpy(msg_level_txt, msg_level_table[msg_level]);
+        } else {
+                strcpy(msg_level_txt, "UNKNOWN");
         }
 
         fprintf(app_log, "[%-19s]  [%-7s]  %s:%u  %s\n", now, msg_level_txt, file_name, line_no, msg);
