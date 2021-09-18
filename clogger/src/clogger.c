@@ -5,7 +5,7 @@
 static FILE *clogger_config;
 
 /* clogger status - running (ON) else OFF */
-static uint8_t clogger_stat = CLOGGER_OFF; 
+static int8_t clogger_stat = CLOGGER_OFF; 
 
 /* Variables which are to be set based on `runtime.conf` */
 static uint8_t debug_level = 255;
@@ -118,7 +118,7 @@ int _clogger_log(char *file_name,
                         || clogger_stat == CLOGGER_OFF
                         || msg_level == OFF) return SUCCESS;
 
-        if (msg_level >= debug_level) {
+        if (msg_level & debug_level) {
                 if (write_application_log(file_name, line_no, msg_level, str) != 0) {
                         write_clogger_log("Failed while writing to application log:");
                         write_clogger_log(str);
