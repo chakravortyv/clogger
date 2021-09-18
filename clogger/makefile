@@ -1,2 +1,2 @@
 clogger: src/incl/*.h src/*.c
-	gcc -g -Wall -pedantic -pthread -o bin/clogger src/incl/*.h src/*.c
+	clang -g -Wall -pedantic -pthread src/*.c -o bin/clogger
