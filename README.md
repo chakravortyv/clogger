@@ -75,7 +75,7 @@ The following is a sample log file of some application:
 
     [2019-03-24 13:44:44]  [INFO   ]  src/main.c:17  some info message
     [2019-03-24 13:44:44]  [ERR    ]  src/main.c:18  some err message
-    [2019-03-24 13:44:44]  [       ]  src/main.c:19  some unk message
+    [2019-03-24 13:44:44]  [UNKNOWN]  src/main.c:19  some unk message
     [2019-03-24 13:44:44]  [FATAL  ]  src/main.c:20  some fatal message
     [2019-03-24 13:44:44]  [INFO   ]  src/main.c:21  another info message
     
